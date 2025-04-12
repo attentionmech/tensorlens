@@ -1,0 +1,46 @@
+temp
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# IDE files (add others as necessary, e.g., VSCode, PyCharm)
+.idea/
+.vscode/
+
+# System files (macOS, Linux, Windows)
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node modules (for the frontend)
+webapp/node_modules/
+
+# Frontend build artifacts
+webapp/dist/
+
+# Flask instance folder
+instance/
+
+# .env or configuration files containing sensitive info
+.env
+
+# Other common files
+*.bak
+*.swp
+
+
+uv.lock
+.tensorlens

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tensorlens"
+version = "0.0.1"
+description = "tensorlens"
+authors = [
+    {name = "attentionmech", email = "attentionmech@gmail.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = [
+    "flask",
+    "gunicorn",
+    "ipython",
+    "numpy",
+]
+
+[project.scripts]
+tensorlens = "tensorlens.tensorlens:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tensorlens*"]
+
+[tool.setuptools.package-data]
+"tensorlens.web" = ["static/**/*"]
