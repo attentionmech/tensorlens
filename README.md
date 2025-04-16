@@ -6,6 +6,17 @@ TensorLens is a minimalistic Python library to trace and visualise tensors. It a
 
 ## Installation
 
+try in colab in 3 lines:
+
+![image](https://github.com/user-attachments/assets/31605c78-957b-48e4-a501-25776d3fd63a)
+
+<a href="https://colab.research.google.com/github/attentionmech/tensorlens/blob/main/tensorlens/notebooks/tensorlens_setup_demo.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+
+<br><br>
+
 Install TensorLens from PyPI:
 
 ```bash
