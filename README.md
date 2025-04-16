@@ -35,6 +35,10 @@ viewer(height='100%')
 
 you can run the above code via `uv` like this `uv run --with torch,transformers,tensorlens demo.py` where `demo.py` is file where you pasted this example.
 
+If you are superlazy, you can run this recipe via my other project `smolbox`
+
+`uv run --with git+https://github.com/attentionmech/smolbox smolbox inspect/tensorlens_weights`
+
 
 ### Trace Operator
 
