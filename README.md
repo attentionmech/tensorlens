@@ -14,6 +14,11 @@ try in colab in 3 lines:
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
+<br><br>
+
+Source of data is backend, hence you can change params like normalisation strategy and they will reflect immediately:
+
+![image](https://github.com/user-attachments/assets/73b19e86-b188-4b1e-af0e-c70c0e0ce76b)
 
 <br><br>
 
