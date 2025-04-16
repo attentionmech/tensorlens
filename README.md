@@ -75,8 +75,7 @@ viewer(host="127.0.0.1", port=8000, notebook=True)
 - `--workers`: Number of server workers.
 - `--host`: Host to bind.
 - `--port`: Port to bind.
-- `--tensordata_path`: Path to store tensor data.
-- `--downsample_threshold`: Points threshold after which downsampling occurs.
+- `--downsample_threshold`: Points threshold after which downsampling occurs (default 1M).
 
 ## Example
 
