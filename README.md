@@ -18,6 +18,20 @@ uv run --with tensorlens tensorlens
 
 ## Usage
 
+It can be used to visualise and manipulate tensors using UI. for example this code visualises GPT2 state dict tensors
+
+```bash
+import torch
+import numpy as np
+from transformers import GPT2Model, GPT2Config
+from tensorlens.tensorlens import trace, viewer
+
+[trace(key, tensor.detach().cpu().numpy()) for key, tensor in GPT2Model.from_pretrained('gpt2-large').state_dict().items()]
+
+viewer(height='100%')
+```
+
+
 ### Trace Operator
 
 The core operation of TensorLens is the `trace` function. 
