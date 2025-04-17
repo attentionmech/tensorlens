@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/d9161c40-4edb-4657-a550-2b9c2f56c83f)
 
-TensorLens is a minimalistic Python library to trace and visualise tensors. It allows you to trace tensors, normalize them, and store them for later use. It also provides an interactive viewer for inspecting these tensors. Currently supporting only 1D,2D and 3D tensors.
+TensorLens is a minimalistic Python library to trace and visualise tensors. It also provides an interactive viewer for inspecting these tensors. Currently supporting only 1D,2D and 3D tensors.
 
 ## Installation
 
