@@ -34,6 +34,15 @@ For a quick demo
 uv run --with tensorlens tensorlens
 ```
 
+### Demos with LLMs
+
+Have done some demos with models and they can be run via my other script repo smolbox (or you can just use the code directly).
+
+- [activations](https://github.com/attentionmech/smolbox/blob/main/smolbox/tools/inspect/tensorlens_activations.py)
+- [weights](https://github.com/attentionmech/smolbox/blob/main/smolbox/tools/inspect/tensorlens_weights.py)
+- [attention](https://github.com/attentionmech/smolbox/blob/main/smolbox/tools/inspect/tensorlens_attention.py)
+
+
 ## Usage
 
 It can be used to visualise and manipulate tensors using UI. for example this code visualises GPT2 state dict tensors
