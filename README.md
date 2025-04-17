@@ -47,7 +47,7 @@ Have done some demos with models and they can be run via my other script repo sm
 
 It can be used to visualise and manipulate tensors using UI. for example this code visualises GPT2 state dict tensors
 
-```bash
+```python
 import torch
 import numpy as np
 from transformers import GPT2Model, GPT2Config
