@@ -179,6 +179,20 @@ def parse_args():
         default=1000000,
         help="num point after which downsampling will happen",
     )
+    parser.add_argument(
+        "--point_size",
+        type=float,
+        default=4.0,
+        help="point size")
+    parser.add_argument(
+        "--refresh_interval",
+        type=int,
+        default=10000,
+        help="refresh interval")
+    parser.add_argument(
+        "--disable_transforms",
+        action="store_true",
+        help="disable transforms from ui")
     return parser.parse_args()
 
 
@@ -192,13 +206,20 @@ def viewer(
     width=400,
     height=400,
     downsample_threshold=1000000,
+    point_size=6.0,
+    refresh_interval=500,
+    disable_transforms=False,
 ):
     global_store.TENSORDATA_PATH = tensordata_path
     global_store.MAX_POINTS = downsample_threshold
+    global_store.POINT_SIZE = point_size
+    global_store.REFRESH_INTERVAL = refresh_interval
+    global_store.DISABLE_TRANSFORMS = disable_transforms
+    
 
-    trace("demo_1d", np.random.randint(-100, 100, size=30))
-    trace("demo_2d", np.random.randint(-100, 100, size=(20, 20)))
-    trace("demo_3d", np.random.randint(-100, 100, size=(20, 20, 20)))
+    trace("demo_1d", np.random.randint(-100, 100, size=100))
+    trace("demo_2d", np.random.randint(-100, 100, size=(100, 100)))
+    trace("demo_3d", np.random.randint(-100, 100, size=(50, 50, 50)))
 
     if notebook:
         return _start_colab_server(
@@ -222,6 +243,9 @@ def main():
         width=400,
         height=400,
         downsample_threshold=args.downsample_threshold,
+        point_size=args.point_size,
+        refresh_interval=args.refresh_interval,
+        disable_transforms=args.disable_transforms
     )
 
 

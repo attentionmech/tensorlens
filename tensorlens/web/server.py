@@ -32,7 +32,8 @@ def serve_static(path):
 
 @app.route("/api/config", methods=["GET"])
 def config():
-    return jsonify({"status": "ok", "max_points": global_store.MAX_POINTS})
+    return jsonify({"status": "ok", "max_points": global_store.MAX_POINTS, "point_size": global_store.POINT_SIZE,
+                    "refresh_interval": global_store.REFRESH_INTERVAL})
 
 
 @app.route("/api/get_tensor", methods=["GET"])
@@ -67,7 +68,7 @@ def get_tensor():
 
     try:
         # If there's Python code provided, evaluate it
-        if user_code:
+        if user_code and global_store.DISABLE_TRANSFORMS == False:
             # Use eval to execute the code in a safe environment
             result = eval(user_code, {}, env)
         else:
