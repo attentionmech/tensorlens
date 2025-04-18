@@ -15,6 +15,11 @@ let currentTensorKey = null;
 let refreshInterval = null;
 let isFetching = false;
 
+// Check if WebGPU is available
+const isWebGPUAvailable = () => {
+  return navigator.gpu !== undefined;
+};
+
 async function fetchTensorList() {
   const res = await fetch("/api/list_tensors");
   return await res.json();
@@ -57,12 +62,12 @@ Effect.ShadersStore["customVertexShader"] = `
   attribute vec3 position;
   attribute vec4 color;
   uniform mat4 worldViewProjection;
-  uniform float pointSize;
+  uniform float pointSize;  // This will be passed as uniform
   varying vec4 vColor;
 
   void main() {
     gl_Position = worldViewProjection * vec4(position, 1.0);
-    gl_PointSize = pointSize;
+    gl_PointSize = pointSize;  // Ensure this is a constant or uniform, not dynamically assigned
     vColor = color;
   }
 `;
@@ -137,7 +142,7 @@ function renderTensorWithPCS(tensor, scene, offset) {
       uniforms: ["worldViewProjection", "pointSize"],
     });
 
-    shaderMat.setFloat("pointSize", 6.0);
+    shaderMat.setFloat("pointSize", 6.0); // Set the point size as uniform value
     shaderMat.backFaceCulling = false;
     shaderMat.pointsCloud = true;
     shaderMat.disableLighting = true;
