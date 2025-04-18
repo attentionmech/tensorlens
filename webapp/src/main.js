@@ -14,16 +14,23 @@ let spsMesh = null;
 let currentTensorKey = null;
 let refreshInterval = null;
 let isFetching = false;
+let globalPointSize = 6.0;
+let globalRefreshInterval = 500;
+
+async function fetchConfig() {
+  const res = await fetch("/api/config");
+  const config = await res.json();
+  return {
+    maxPoints: config.max_points || 10000,
+    pointSize: config.point_size || 6.0,
+    refreshInterval: config.refresh_interval || 500,
+    disableTransforms: config.disable_transforms || false,
+  };
+}
 
 async function fetchTensorList() {
   const res = await fetch("/api/list_tensors");
   return await res.json();
-}
-
-async function fetchMaxPoints() {
-  const res = await fetch("/api/config");
-  const config = await res.json();
-  return config.max_points || 10000; // Default to 10,000 if max_points is not set
 }
 
 async function fetchTensorByKey(key, code = "", maxPoints = 10000) {
@@ -137,7 +144,7 @@ function renderTensorWithPCS(tensor, scene, offset) {
       uniforms: ["worldViewProjection", "pointSize"],
     });
 
-    shaderMat.setFloat("pointSize", 6.0);
+    shaderMat.setFloat("pointSize", globalPointSize);
     shaderMat.backFaceCulling = false;
     shaderMat.pointsCloud = true;
     shaderMat.disableLighting = true;
@@ -151,35 +158,33 @@ function renderTensorWithPCS(tensor, scene, offset) {
 // Show downsampling message
 function showDownsamplingMessage() {
   const messageElement = document.getElementById("downsampleMessage");
-  messageElement.style.display = "block"; // Show the message
+  messageElement.style.display = "block";
 
-  // Hide the message after 3 seconds
   setTimeout(() => {
     messageElement.style.display = "none";
-  }, 3000); // 3000ms = 3 seconds
+  }, 5000);
 }
 
-// Update the downsampleTensor function to call showDownsamplingMessage when downsampling is triggered
 function downsampleTensor(data, dims, maxPoints) {
   let downsampledData = data;
 
   if (dims === 1) {
     if (data.length > maxPoints) {
       downsampledData = sample1D(data, maxPoints);
-      showDownsamplingMessage();  // Show the message when downsampling occurs
+      showDownsamplingMessage();
     }
   } else if (dims === 2) {
     const total = data.reduce((sum, row) => sum + row.length, 0);
     if (total > maxPoints) {
       downsampledData = sample2D(data, maxPoints);
-      showDownsamplingMessage();  // Show the message when downsampling occurs
+      showDownsamplingMessage();
     }
   } else if (dims === 3) {
     const total = data.reduce((sum, plane) =>
       sum + plane.reduce((rowSum, row) => rowSum + row.length, 0), 0);
     if (total > maxPoints) {
       downsampledData = sample3D(data, maxPoints);
-      showDownsamplingMessage();  // Show the message when downsampling occurs
+      showDownsamplingMessage();
     }
   } else {
     console.warn("Unsupported dims for downsampling:", dims);
@@ -199,7 +204,6 @@ function sample2D(data, maxPoints) {
   const step = Math.ceil(flat.length / maxPoints);
   const sampled = flat.filter((_, idx) => idx % step === 0);
 
-  // Rebuild into 2D shape (as square as possible)
   const size = Math.ceil(Math.sqrt(sampled.length));
   const out = [];
   for (let i = 0; i < sampled.length; i += size) {
@@ -214,7 +218,6 @@ function sample3D(data, maxPoints) {
   const step = Math.ceil(flat.length / maxPoints);
   const sampled = flat.filter((_, idx) => idx % step === 0);
 
-  // Rebuild into 3D cube shape
   const cubeSize = Math.ceil(Math.cbrt(sampled.length));
   const out = [];
   for (let z = 0; z < cubeSize; z++) {
@@ -235,7 +238,14 @@ function sample3D(data, maxPoints) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const maxPoints = await fetchMaxPoints(); // ← Fetch it once here
+  const { maxPoints, pointSize, refreshInterval, disableTransforms } = await fetchConfig();
+  globalPointSize = pointSize;
+  globalRefreshInterval = refreshInterval;
+
+  if (!disableTransforms) {
+    document.getElementById("pythonCodeInput").hidden = true;
+  }
+
 
   const canvas = document.getElementById("renderCanvas");
   const engine = new Engine(canvas, true);
@@ -285,7 +295,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const pythonCode = pythonCodeInput.value;
 
       try {
-        const tensor = await fetchTensorByKey(currentTensorKey, pythonCode, maxPoints); // ← pass it here
+        const tensor = await fetchTensorByKey(currentTensorKey, pythonCode, maxPoints);
         clearRenderedMesh();
         renderTensorWithPCS(tensor, scene, new Vector3(0, 0, 0));
       } catch (err) {
@@ -296,7 +306,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     await fetchAndRender();
-    refreshInterval = setInterval(fetchAndRender, 500);
+    refreshInterval = setInterval(fetchAndRender, globalRefreshInterval);
   });
 
   engine.runRenderLoop(() => scene.render());
