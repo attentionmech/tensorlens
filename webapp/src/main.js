@@ -31,6 +31,12 @@ async function fetchMaxPoints() {
   return config.max_points || 10000; // Default to 10,000 if max_points is not set
 }
 
+async function fetchRefreshInterval() {
+  const res = await fetch("/api/config");
+  const config = await res.json();
+  return config.refresh_interval || 5000; // 5
+}
+
 async function fetchTensorByKey(key, code = "", maxPoints = 10000) {
   const url = `/api/get_tensor?tensor_key=${encodeURIComponent(key)}&code=${encodeURIComponent(code)}`;
   const res = await fetch(url);
@@ -301,7 +307,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     await fetchAndRender();
-    refreshInterval = setInterval(fetchAndRender, 500);
+    refreshInterval = setInterval(fetchAndRender, await fetchRefreshInterval());
   });
 
   engine.runRenderLoop(() => scene.render());

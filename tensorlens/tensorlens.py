@@ -179,6 +179,12 @@ def parse_args():
         default=1000000,
         help="num point after which downsampling will happen",
     )
+    parser.add_argument(
+        "--refresh_interval",
+        type=int,
+        default=5000,
+        help="refresh interval in ms"
+    )
     return parser.parse_args()
 
 
@@ -192,9 +198,11 @@ def viewer(
     width=400,
     height=400,
     downsample_threshold=1000000,
+    refresh_interval=5000
 ):
     global_store.TENSORDATA_PATH = tensordata_path
     global_store.MAX_POINTS = downsample_threshold
+    global_store.REFRESH_INTERVAL = refresh_interval
 
     trace("demo_1d", np.random.randint(-100, 100, size=30))
     trace("demo_2d", np.random.randint(-100, 100, size=(20, 20)))
@@ -222,6 +230,7 @@ def main():
         width=400,
         height=400,
         downsample_threshold=args.downsample_threshold,
+        refresh_interval=args.refresh_interval,
     )
 
 

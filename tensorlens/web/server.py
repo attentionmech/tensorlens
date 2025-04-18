@@ -32,7 +32,7 @@ def serve_static(path):
 
 @app.route("/api/config", methods=["GET"])
 def config():
-    return jsonify({"status": "ok", "max_points": global_store.MAX_POINTS})
+    return jsonify({"status": "ok", "max_points": global_store.MAX_POINTS, "refresh_interval": global_store.REFRESH_INTERVAL})
 
 
 @app.route("/api/get_tensor", methods=["GET"])
