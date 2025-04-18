@@ -148,7 +148,7 @@ function renderTensorWithPCS(tensor, scene, offset) {
       uniforms: ["worldViewProjection", "pointSize"],
     });
 
-    shaderMat.setFloat("pointSize", 6.0); // Set the point size as uniform value
+    shaderMat.setFloat("pointSize", 3.0); // Set the point size as uniform value
     shaderMat.backFaceCulling = false;
     shaderMat.pointsCloud = true;
     shaderMat.disableLighting = true;
