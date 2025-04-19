@@ -103,7 +103,7 @@ from tensorlens.tensorlens import viewer
 viewer(host="127.0.0.1", port=8000, notebook=True)
 ```
 
-IMPORTANT NOTE: in viewer there is option to execute some numpy operations too. Although I have done some basic checks, but running code received from UI in python is not considered safe, so ensure you are running this in secure trusted network. Will introduce a flag to disable that feature in next release.
+IMPORTANT NOTE: you can disable the numpy code execution (generally not a good practice) if you are exposing it on a network beyond your personal workflow.
 
 ### Command-Line Interface
 
