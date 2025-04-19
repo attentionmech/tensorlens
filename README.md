@@ -129,3 +129,12 @@ trace("demo_3d", np.random.randint(-100, 100, size=(20, 20, 20)))
 # Start the viewer server
 viewer(port=8080, debug=True)
 ```
+
+
+# Contributing
+
+This repo is consisting of frontend and backend both. In the python package we embed the packed webapp. A very simple dev workflow is to create a local venv and then use ` sh scripts/build_webapp.sh && uv pip install --no-cache .` command to build webapp, then build python package. this will ensure every change is part of the final `tensorlens` package and you can then run it via `tensorlens` on command line.
+
+if you are doing trace operation, it will take some time to reflect on the UI if you have not called the viewer again. this is because we do a call to backend at some frequency not like continuously. This can be improved via some other message passing approaches too.
+
+
