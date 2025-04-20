@@ -5,7 +5,7 @@ demo in seconds with `uvx tensorlens` if you have uv installed.
 
 ![image](https://github.com/user-attachments/assets/d9161c40-4edb-4657-a550-2b9c2f56c83f)
 
-TensorLens is a minimalistic Python library to trace and visualise tensors. It also provides an interactive viewer for inspecting these tensors. Currently supporting only 1D,2D and 3D tensors.
+TensorLens is a minimalistic python library to trace and visualise tensors. It provides an interactive viewer for inspecting these tensors. Currently supporting only 1D,2D and 3D tensors. Works on jupyter/colab too.
 
 ## Installation
 
@@ -32,6 +32,10 @@ pip install tensorlens
 ```
 
 For a quick demo
+
+```uvx tensorlens```
+
+or
 
 ```bash
 uv run --with tensorlens tensorlens
