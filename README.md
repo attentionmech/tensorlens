@@ -141,4 +141,13 @@ This repo is consisting of frontend and backend both. In the python package we e
 
 if you are doing trace operation, it will take some time to reflect on the UI if you have not called the viewer again. this is because we do a call to backend at some frequency not like continuously. This can be improved via some other message passing approaches too.
 
+# Citation
+
+```
+@article{attentionmech2025tensorlens,
+  title={tensorlens: tensor visualisation tool},
+  author={attentionmech},
+  year={2025}
+}
+```
 
