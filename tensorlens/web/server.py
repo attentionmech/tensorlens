@@ -33,7 +33,7 @@ def serve_static(path):
 @app.route("/api/config", methods=["GET"])
 def config():
     return jsonify({"status": "ok", "max_points": global_store.MAX_POINTS, "point_size": global_store.POINT_SIZE,
-                    "refresh_interval": global_store.REFRESH_INTERVAL})
+                    "refresh_interval": global_store.REFRESH_INTERVAL, "disable_transforms": global_store.DISABLE_TRANSFORMS,})
 
 
 @app.route("/api/get_tensor", methods=["GET"])

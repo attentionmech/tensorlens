@@ -239,10 +239,11 @@ function sample3D(data, maxPoints) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const { maxPoints, pointSize, refreshInterval, disableTransforms } = await fetchConfig();
+  console.log("disableTransforms", disableTransforms);
   globalPointSize = pointSize;
   globalRefreshInterval = refreshInterval;
 
-  if (!disableTransforms) {
+  if (disableTransforms) {
     document.getElementById("pythonCodeInput").hidden = true;
   }
 
@@ -252,7 +253,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const scene = new Scene(engine);
   scene.clearColor = new Color3(0, 0, 0);
 
-  const camera = new ArcRotateCamera("camera", Math.PI / 4, Math.PI / 4, 50, Vector3.Zero(), scene);
+  const camera = new ArcRotateCamera("camera", Math.PI / 4, Math.PI / 4, 100, Vector3.Zero(), scene);
   camera.minZ = 0.01;
   camera.maxZ = 10000;
   camera.attachControl(canvas, true);
